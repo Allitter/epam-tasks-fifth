@@ -1,26 +1,31 @@
 package com.epam.tasks.fifth.data;
 
 import com.epam.tasks.fifth.data.exceptions.FactoryNotExistsException;
-import com.epam.tasks.fifth.data.input.ConsoleLinesReader;
-import com.epam.tasks.fifth.data.input.FileLinesReader;
 import com.epam.tasks.fifth.data.input.LinesReader;
 import java.io.FileNotFoundException;
-import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LinesReaderFactory {
+    private final Map<String, ReaderFactory> factories;
 
-    public LinesReader createReader(String name, String path)
+    public LinesReaderFactory() {
+        factories = new HashMap<>();
+        factories.put("console", new ConsoleLinesReaderFactory());
+        factories.put("file", new FileLinesReaderFactory());
+    }
+
+    public LinesReader createReader(String name)
             throws FileNotFoundException, FactoryNotExistsException {
 
-        switch (name.toLowerCase()) {
-            case "console" :
-                return new ConsoleLinesReader();
-            case "file" :
-                return new FileLinesReader(new File(path));
-            default:
-                throw new FactoryNotExistsException(
-                        String.format("%s factory not exists", name));
+        name = name.toLowerCase();
+        if (!factories.containsKey(name)) {
+            throw new FactoryNotExistsException(
+                    String.format("factory \"%s\" not exists", name));
         }
+
+        ReaderFactory factory = factories.get(name);
+        return factory.createReader();
     }
 
 }

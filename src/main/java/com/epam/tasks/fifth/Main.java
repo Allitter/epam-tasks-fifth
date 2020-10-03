@@ -18,7 +18,7 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) throws IOException, FactoryNotExistsException {
         LinesReaderFactory factory = new LinesReaderFactory();
-        LinesReader reader = factory.createReader("console", "");
+        LinesReader reader = factory.createReader("console");
         String input = reader.readLines(2);
 
         StringProcessor processor = new StringAsArrayProcessor();
