@@ -6,10 +6,10 @@ import java.util.regex.Pattern;
 public class StringRegExProcessor implements StringProcessor {
     //language=RegExp
     private static final String CONSONANT_STARTING_WORD =
-            "(?i)\\b[bcdfghjklmnpqrstvwxz][a-z]";
+            "(?i)\\b[a-z&&[^aeiou]][a-z]";
 
-    public String removeConsonantStartingWords(String line, int length) {
-        String toRemove = arrangeRegExWordLength(length);
+    public String removeConsonantStartingWords(String line, int wordLength) {
+        String toRemove = arrangeRegExWordLength(wordLength);
         Pattern pattern = Pattern.compile(toRemove);
         Matcher matcher = pattern.matcher(line);
 

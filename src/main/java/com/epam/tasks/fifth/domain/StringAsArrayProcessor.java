@@ -20,7 +20,7 @@ public class StringAsArrayProcessor implements StringProcessor {
         vowels.add('U');
     }
 
-    public String removeConsonantStartingWords(String line, int length) {
+    public String removeConsonantStartingWords(String line, int wordLength) {
         StringBuilder stringBuilder = new StringBuilder();
         String word;
         int i = 0;
@@ -29,7 +29,7 @@ public class StringAsArrayProcessor implements StringProcessor {
             if (isConsonant(line.charAt(i))) {
                 word = scanWordFromIndex(line, i);
 
-                if (word.length() != length) {
+                if (word.length() != wordLength) {
                     stringBuilder.append(word);
                 }
 
